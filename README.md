@@ -11,27 +11,57 @@ I built it to practice real-world Spring Boot fundamentals including layered arc
 - How to document APIs using Swagger UI
 
 ## Tech Stack
-Java 21 • Spring Boot 3.2 • PostgreSQL • Swagger • JPA • Lombok
+- **Java 21**
+- **Spring Boot 3.2**
+- **Spring Web**
+- **Spring Data JPA**
+- **PostgreSQL**
+- **Docker**
+- **Lombok**
+- **Swagger (springdoc-openapi)**
 
-## API Docs
+## 🐳 Running PostgreSQL with Docker
 
+This project includes a `docker-compose.yml` file so you can start PostgreSQL without installing it manually.
+
+Start the database: "docker compose up -d"
+
+Which creates a PostgreSQL container named postgres-notes-api which has the following properties:
+
+- **Database:** boost  
+- **Username:** boost  
+- **Password:** password  
+- **Port:** 5332 → 5432  
+
+The spring boot application connects using:
+spring.datasource.url=jdbc:postgresql://localhost:5332/boost
+spring.datasource.username=boost
+spring.datasource.password=password
+
+## ▶️ Running the Spring Boot Application
+- Clone the repository
+- Start PostgreSQL using Docker:  docker compose up -d
+- Run the Spring Boot application: mvn spring-boot:run or just use intellij
+- Open Swagger UI
 
 Swagger UI is available at:
 http://localhost:8080/swagger-ui.html 
+Swagger UI provides interactive API documentation
 
-## 🗄 Database
+You can test all endpoints directly from the browser.
 
-This project uses PostgreSQL.  
+---
 
-Update your connection settings in: src/main/resources/application.properties
+## 📁 Project Structure
+src/main/java/com.boostcode
+├── controller        # REST controllers
+├── dto               # Request/response models
+├── exception         # Custom exceptions + global handler
+├── model             # JPA entities
+├── repository        # Spring Data JPA repositories
+└── service           # Business logic layer
 
-An example would be:
-spring.datasource.url=jdbc:postgresql://localhost:5432/notesdb
-spring.datasource.username=postgres
-spring.datasource.password=yourpassword
-spring.jpa.hibernate.ddl-auto=update
 
-To run
-- Clone the repository
-- Run the application by the command: mvn spring-boot:run
-- Or run it directly from Intellij project structure
+To stop the database you can use the "docker compose down" command.
+
+
